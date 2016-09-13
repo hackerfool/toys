@@ -2,30 +2,18 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"strings"
+
+	"github.com/opesun/goquery"
 )
 
 func main() {
 	URL := "https://www.zhihu.com/people/zhumo0.0"
-	readPeople(URL)
-}
-
-func readPeople(url string) {
-	client := &http.Client{}
-	request, _ := http.NewRequest("GET", url, strings.NewReader(""))
-	//request.Header.Set("Referer", "https://www.zhihu.com/")
-	response, err := client.Do(request)
+	x, err := goquery.ParseUrl(URL)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-	defer response.Body.Close()
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		// handle error
-	}
-
-	fmt.Println(string(body))
+	y := x.Find("div.zm-profile-side-following")
+	(y.Find("a.item")).Find("strong").Print()
+	// x.Find("span.zg-gray-normal").First().Text()
+	fmt.Println("---")
 }
