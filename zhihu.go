@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
@@ -46,7 +47,7 @@ func main() {
 func readPeople(url string) {
 
 	request, err := http.NewRequest("GET", url, strings.NewReader(""))
-	request.Header.Set("Cookie", `d_c0="AJCAFHjAiAqPThKVF-mjCBfcWA8mMqvxBm8=|1473755951"; _za=38c06cb5-7f0c-445c-a67a-c4d59b6493cf; _xsrf=50f89e23ebe1b959838c01208a6ede8f; _zap=7641b9c6-8f37-4179-b70a-2d59f2b3e8c3; q_c1=3c9b1116b67d4779805d24ee4c6ed9c2|1473773979000|1473773979000; l_cap_id="NjIyMGZlNDU0MWVmNDVhZWExYjc3ZTMwMWNmYmRmYWI=|1473774826|0f2ed9e638b8e47c82fc68d07019eb8e6131c1ec"; cap_id="Zjk5OTQ4NWZmMGZkNDM1YWI3YWY0ZDYwMmI5NzIzOTA=|1473774826|354fe08c4ca32589c6f889bcb66f3ff51d5c4200"; n_c=1; a_t="2.0AACAG6EdAAAXAAAAULD_VwAAgBuhHQAAAJCAFHjAiAoXAAAAYQJVTe6R_1cAorqoivJAOegGeKpl1glWAhOM9JgertH_e2ksI7FXyEf0qsnb50PTOg=="; z_c0=Mi4wQUFDQUc2RWRBQUFBa0lBVWVNQ0lDaGNBQUFCaEFsVk43cEhfVndDaXVxaUs4a0E1NkFaNHFtWFdDVllDRTR6MG1B|1473782608|5e2da97cd4fc22e4a8e46801df0da73d7b78ba0b; __utmt=1; __utma=51854390.930195786.1473773031.1473773031.1473782610.2; __utmb=51854390.3.9.1473782612648; __utmc=51854390; __utmz=51854390.1473782610.2.2.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/people/zhumo0.0; __utmv=51854390.100-1|2=registration_date=20130829=1^3=entry_date=20130829=1`)
+	request.Header.Set("Cookie", `q_c1=746738a68faf490e869c8edf240cc728|1473842100000|1473842100000; _xsrf=4b80377c20555b6b2f9fbdfdc88bbf06; l_cap_id="YmZjY2MzZmFmY2QyNDc5ZDgxYzYxZGQzYTY3NzBiOWI=|1473842100|916a4c17d9287b116e938976c7a4fadff3f2c653"; cap_id="ZjQ5ODU3MDkxMzhhNDkyN2IzNTlkNGNmZmI3N2FlZGU=|1473842100|4801fdaf1c3e8900b57cc4ff10adff2c69d08104"; _za=8faf509f-a4af-4e29-9c7f-8d05ea05c6da; d_c0="ADDAZhoJigqPToHwAUdAJ7vTgS8ABdWGI8Q=|1473842101"; _zap=167ff54b-3dba-412d-a4a3-a9e214ab7968; n_c=1; s-q=%E6%94%AF%E4%BB%98%E5%AE%9D%20%E5%88%B0%E4%BD%8D; s-i=1; sid=tcajbglg; __utmt=1; a_t="2.0AACAG6EdAAAXAAAAKaAAWAAAgBuhHQAAADDAZhoJigoXAAAAYQJVTcKYAFgAiEFGGQe5AovD6OerspDKaHRDIO26fqHdkGH6DTQEmHwe05CHyxtutg=="; z_c0=Mi4wQUFDQUc2RWRBQUFBTU1CbUdnbUtDaGNBQUFCaEFsVk53cGdBV0FDSVFVWVpCN2tDaThQbzU2dXlrTXBvZEVNZzdR|1473844009|dea2565924d26db92162db21b001638ee1b675c8; __utma=51854390.604875030.1473842155.1473842155.1473842155.1; __utmb=51854390.6.10.1473842155; __utmc=51854390; __utmz=51854390.1473842155.1.1.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/search; __utmv=51854390.100-1|2=registration_date=20130829=1^3=entry_date=20130829=1; a=; _za=16974060-84bb-4fa0-ba14-fdb86fe5e886; d_c0="ADBA0CxtoQmPTmo5cFtch-v75PS4jUZ5PeM=|1458231969"; _zap=5808caf8-b490-4299-ae8f-6dcdd1055c8b; q_c1=1a4596f2ae4d4ee2af35ad24d2f717f1|1471853877000|1471853877000; l_cap_id="MTcwZDViMzMxZGJlNGJmZmFmOTA0YjZiMmJhYjM1YzI=|1473326457|600254870fe296387993505206c28e6f4ace656a"; cap_id="ZDc5MWM4ZGNkZmQ4NGY5MWI4MDVmNDJiMmQzMzJlMDc=|1473326457|cd4c7515c1a155732a1a13e109241801fdc245da"; _xsrf=d9eda4b69ca818fa93cba72c0c89efd4; __utmt=1; __utma=51854390.1821037221.1465872812.1473754113.1473844880.27; __utmb=51854390.10.10.1473844880; __utmc=51854390; __utmz=51854390.1473754113.26.19.utmcsr=t.co|utmccn=(referral)|utmcmd=referral|utmcct=/YO2xECvADn; __utmv=51854390.100-1|2=registration_date=20130829=1^3=entry_date=20130829=1; a_t="2.0AACAG6EdAAAXAAAA4aMAWAAAgBuhHQAAADBA0CxtoQkXAAAAYQJVTYO6-FcAT1l-wRNOXGhNOX93by5S6ROrsFsl_r2FuqKqDOtqQLTC10EWtv-mUQ=="; z_c0=Mi4wQUFDQUc2RWRBQUFBTUVEUUxHMmhDUmNBQUFCaEFsVk5nN3I0VndCUFdYN0JFMDVjYUUwNWYzZHZMbExwRTZ1d1d3|1473844961|890393590596cf9220c446925d964ecb90f98e1a`)
 	// body, err := goquery.NewDocument(url)
 	response, err := client.Do(request)
 
@@ -117,12 +118,9 @@ func getUserFollowees(URL string, person *Person) {
 		log.Fatal(err)
 	}
 	followBody, _ := goquery.NewDocumentFromResponse(response)
-	// followBody.Find("div#zh-profile-follows-list").Find("div.zm-profile-card.zm-profile-section-item.zg-clear.no-hovercard").Each(func(i int, dom *goquery.Selection) {
-	// 	s := dom.Find("a.zm-item-link-avatar")
-	// 	name, _ := s.Attr("title")
-	// 	url, _ := s.Attr("href")
-	// 	fmt.Println(name, "--", url)
-	// })
+
+	xsrf, _ := followBody.Find(`input[name="_xsrf"]`).Attr("value")
+
 	date, _ := followBody.Find("div.zh-general-list.clearfix").Attr("data-init")
 	js, err := simplejson.NewJson([]byte(date))
 	//{"params": {"offset": 0, "order_by": "created", "hash_id": "c8a506f7961e94bb0ef3f243b198be70"}, "nodename": "ProfileFolloweesListV2"}
@@ -131,6 +129,10 @@ func getUserFollowees(URL string, person *Person) {
 	for i := 0; i < person.followeesNum; i += 20 {
 		str := strings.Join([]string{"method=next&params=%7B%22offset%22%3A", strconv.Itoa(i), "%2C%22order_by%22%3A%22created%22%2C%22hash_id%22%3A%22", hashID, "%22%7D"}, "")
 		req, err := http.NewRequest("POST", "https://www.zhihu.com/node/ProfileFolloweesListV2", strings.NewReader(str))
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		req.Header.Set("Referer", URL)
+		req.Header.Set("X-Xsrftoken", xsrf)
+
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -138,7 +140,21 @@ func getUserFollowees(URL string, person *Person) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		div, err := goquery.NewDocumentFromResponse(res)
-		fmt.Println(div.Text())
+		defer res.Body.Close()
+		web, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			// handle error
+		}
+
+		js, err = simplejson.NewJson(web)
+		msg := js.Get("msg").MustStringArray()
+		msgstr := strings.NewReader(strings.Join(msg, ""))
+		doc, err := goquery.NewDocumentFromReader(msgstr)
+		doc.Find("div.zm-profile-card.zm-profile-section-item.zg-clear.no-hovercard").Each(func(i int, dom *goquery.Selection) {
+			s := dom.Find("a.zm-item-link-avatar")
+			name, _ := s.Attr("title")
+			url, _ := s.Attr("href")
+			fmt.Println(name, "--", url)
+		})
 	}
 }
