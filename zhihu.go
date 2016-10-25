@@ -13,6 +13,8 @@ import (
 	"github.com/bitly/go-simplejson"
 )
 
+//test for rebase
+
 //Person 知乎用户信息
 type Person struct {
 	name         string
